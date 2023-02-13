@@ -4,8 +4,8 @@ import axios from 'axios'
 import Loading from "../Components/Loading";
 import EmployeeTable from "../Components/EmployeeTable";
 
-const fetchEmployees = (filter, signal) => {
-  return fetch("/api/employees", { signal }).then((res) => res.json());
+const fetchEmployees = (signal) => {
+  return fetch(`/api/employees`, { signal }).then((res) => res.json());
 };
 
 const deleteEmployee = (id) => {
@@ -49,15 +49,15 @@ const EmployeeList = () => {
 
   const handleFilter = async () => {
     try{
-      const req = await fetch(`http://localhost:8080/api/employees/filter-position/${filterPos.current.value}`, {
+      const filteredData = await axios.get(`https://localhost:8080/api/employees/filter-position/${filterPos.current.value}`, {
         headers: {
           'Access-Control-Allow-Origin': true
         },
-        mode: 'no-cors'
+        mode: 'cors'
       })
-      const filteredData = await req.json()
       setData(filteredData)
-    }catch {
+    }catch (error) {
+      console.log(error)
     }
   }
 

@@ -2,7 +2,7 @@ const { Router } = require('express');
 const EmployeeModel = require("../db/employee.model");
 
 module.exports = Router()
-            .get('/filter-position/:position', async (req, res) => {
+            .get('/:position', async (req, res) => {
                
 
                 try {
