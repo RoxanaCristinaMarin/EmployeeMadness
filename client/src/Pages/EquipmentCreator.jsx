@@ -1,30 +1,30 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import EmployeeForm from "../Components/EmployeeForm";
+import EquipmentForm from "../Components/EquipmentForm";
 
-const createEmployee = async (employee) => {
-    const res = await fetch("http://localhost:8080/api/employees", {
+const createEquipment = async (equipment) => {
+    const res = await fetch("http://localhost:8080/api/equipment", {
         method: "POST",
         headers: {
             "Access-Control-Allow-Origin": true,
             "Content-Type": "application/json",
         },
         mode: "cors",
-        body: JSON.stringify(employee),
+        body: JSON.stringify(equipment),
     });
     return await res.json();
 };
 
-const EmployeeCreator = () => {
+const EquipmentCreator = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
-    const handleCreateEmployee = (employee) => {
+    const handleCreateEquipment = (equipment) => {
         setLoading(true);
 
-        createEmployee(employee)
+        createEquipment(equipment)
             .then(() => {
-                navigate("/");
+                navigate("/equipments");
             })
             .catch((err) => {
                 throw err;
@@ -35,12 +35,12 @@ const EmployeeCreator = () => {
     };
 
     return (
-        <EmployeeForm
-            onCancel={() => navigate("/")}
+        <EquipmentForm
+            onCancel={() => navigate("/equipments")}
             disabled={loading}
-            onSave={handleCreateEmployee}
+            onSave={handleCreateEquipment}
         />
     );
 };
 
-export default EmployeeCreator;
+export default EquipmentCreator;
